@@ -5,19 +5,37 @@ namespace Oozman\Terra\Contracts;
 interface ConfigContract
 {
     /**
-     * Get environment.
-     * Eg: testing, production.
+     * Get LCD URL.
      *
      * @return string
      */
-    public function environment(): string;
+    public function lcdUrl(): string;
 
     /**
-     * Get baseUrl by key.
-     *
-     * @param   string|null  $key
+     * Get Chain ID.
      *
      * @return string
      */
-    public function baseUrl(?string $key): string;
+    public function chainId(): string;
+
+    /**
+     * Get address provider id.
+     *
+     * @return string
+     */
+    public function addressProviderId(): string;
+
+    /**
+     * Get API URL.
+     *
+     * @return string
+     */
+    public function apiUrl(): string;
+
+    /**
+     * Get Terra CLI path.
+     *
+     * @return string
+     */
+    public function terraCLIPath(): string;
 }

@@ -15,24 +15,52 @@ class Config implements ConfigContract
     }
 
     /**
-     * Get environment.
+     * Get LCD URL.
      *
      * @return string
      */
-    public function environment(): string
+    public function lcdUrl(): string
     {
-        return Arr::get($this->config, 'environment');
+        return Arr::get($this->config, 'lcd_url');
     }
 
     /**
-     * Get function base url.
-     *
-     * @param   string|null  $key
+     * Get Chain ID.
      *
      * @return string
      */
-    public function baseUrl(?string $key): string
+    public function chainId(): string
     {
-        return Arr::get($this->config, 'base_url.' . $key, '');
+        return Arr::get($this->config, 'chain_id');
+    }
+
+    /**
+     * Get node base path.
+     *
+     * @return string
+     */
+    public function terraCLIPath(): string
+    {
+        return Arr::get($this->config, 'terra_cli_path');
+    }
+
+    /**
+     * Get address provider id.
+     *
+     * @return string
+     */
+    public function addressProviderId(): string
+    {
+        return Arr::get($this->config, 'address_provider_id');
+    }
+
+    /**
+     * Get API URL.
+     *
+     * @return string
+     */
+    public function apiUrl(): string
+    {
+        return Arr::get($this->config, 'api_url');
     }
 }
