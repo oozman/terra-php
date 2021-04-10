@@ -7,9 +7,9 @@ interface TerraContract
     /**
      * Get wallet info.
      *
-     * @param   string  $mnemonicKey
+     * @param   string  $accountAddress
      *
      * @return WalletContract
      */
-    public function wallet(string $mnemonicKey): WalletContract;
+    public function wallet(string $accountAddress): WalletContract;
 }
