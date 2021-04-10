@@ -2,14 +2,16 @@
 
 namespace Oozman\Terra\Contracts;
 
-interface WalletContract
+use Illuminate\Contracts\Support\Arrayable;
+
+interface WalletContract extends Arrayable
 {
     /**
-     * Get account number.
+     * Get account address.
      *
      * @return string
      */
-    public function accountNo(): string;
+    public function accAddress(): string;
 
     /**
      * Get UUSD.
@@ -19,9 +21,9 @@ interface WalletContract
     public function uusd(): float;
 
     /**
-     * To array.
+     * Get UKRW.
      *
-     * @return array
+     * @return float
      */
-    public function toArray(): array;
+    public function ukrw(): float;
 }

@@ -3,19 +3,18 @@
 namespace Oozman\Terra\Entities;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\ArrayShape;
 use Oozman\Terra\Contracts\WalletContract;
 
 class Wallet implements WalletContract
 {
-    protected string $accountNo;
-    protected Collection $balance;
+    protected string $accountAddress;
+    protected array $balance;
 
-    public function __construct(array $data)
+    public function __construct(string $accountAddress, array $balance)
     {
-        $this->accountNo = Arr::get($data, 'address');
-        $this->balance   = collect(Arr::get($data, 'balance'));
+        $this->accountAddress = $accountAddress;
+        $this->balance        = $balance;
     }
 
     /**
@@ -23,9 +22,9 @@ class Wallet implements WalletContract
      *
      * @return string
      */
-    public function accountNo(): string
+    public function accAddress(): string
     {
-        return $this->accountNo;
+        return $this->accountAddress;
     }
 
     /**
@@ -35,13 +34,17 @@ class Wallet implements WalletContract
      */
     public function uusd(): float
     {
-        $uusd = $this->balance->where('denom', 'uusd')->first();
+        return (float)Arr::get($this->balance, 'uusd');
+    }
 
-        if ( ! $uusd) {
-            return 0.0;
-        }
-
-        return (float)Arr::get($uusd, 'amount');
+    /**
+     * Get ukrw amount.
+     *
+     * @return float
+     */
+    public function ukrw(): float
+    {
+        return (float)Arr::get($this->balance, 'ukrw');
     }
 
     /**
@@ -49,11 +52,12 @@ class Wallet implements WalletContract
      *
      * @return array
      */
-    #[ArrayShape(['account_no' => "string", 'uusd' => "float"])] public function toArray(): array
+    #[ArrayShape(['account_no' => "string", 'uusd' => "float", 'ukrw' => "float"])] public function toArray(): array
     {
         return [
-            'account_no' => $this->accountNo(),
+            'account_no' => $this->accAddress(),
             'uusd'       => $this->uusd(),
+            'ukrw'       => $this->ukrw(),
         ];
     }
 }
