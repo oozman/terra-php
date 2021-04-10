@@ -1,6 +1,6 @@
 {
   "name": "oozman/terra-php",
-  "description": "A Terra Money PHP library.",
+  "description": "Yet another Terra Money PHP library.",
   "type": "library",
   "authors": [
     {
