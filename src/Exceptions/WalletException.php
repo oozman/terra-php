@@ -2,6 +2,8 @@
 
 namespace Oozman\Terra\Exceptions;
 
-class WalletException extends RequestException
+use Exception;
+
+class WalletException extends Exception
 {
 }
