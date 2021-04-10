@@ -2,12 +2,14 @@
 
 namespace Oozman\Terra\Entities;
 
+use Exception;
 use Illuminate\Support\Arr;
 use JsonException;
 use Oozman\Terra\Contracts\ConfigContract;
 use Oozman\Terra\Contracts\TerraContract;
 use Oozman\Terra\Contracts\WalletContract;
 use Oozman\Terra\Exceptions\WalletException;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class Terra implements TerraContract
@@ -38,11 +40,16 @@ class Terra implements TerraContract
         }
 
         try {
+            $process->mustRun();
             $result = json_decode($process->getOutput(), true, 512, JSON_THROW_ON_ERROR);
+
+            return new Wallet($accountAddress, Arr::get($result, 'data'));
+        } catch (ProcessFailedException $e) {
+            throw new WalletException($e->getProcess()->getErrorOutput());
         } catch (JsonException $e) {
+            throw new WalletException($process->getErrorOutput());
+        } catch (Exception $e) {
             throw new WalletException($e->getMessage());
         }
-
-        return new Wallet($accountAddress, Arr::get($result, 'data'));
     }
 }
